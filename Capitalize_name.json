@@ -1,0 +1,85 @@
+{
+  "name": "Capitalize-name",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "capitalize-name",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -120
+      ],
+      "id": "67b8fdd9-5d14-441d-a1a8-9d6631bf7f8f",
+      "name": "Webhook",
+      "webhookId": "e89a726e-3768-4167-9b90-0296ddcd9d34"
+    },
+    {
+      "parameters": {
+        "jsCode": "const name = $input.first().json.body.name || \"Unknown\";\nreturn [{ json: { capitalized_name: name.toUpperCase() } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -180,
+        -120
+      ],
+      "id": "377b138f-1499-45d0-adc1-9daacf11679d",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        40,
+        -120
+      ],
+      "id": "1a93b087-03fa-4c98-b2e7-a8d88637202a",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "nZKPkm6gwniUwBu7"
+  },
+  "versionId": "92041619-b2a1-4e34-9ac4-6e5785ec12c4",
+  "meta": {
+    "instanceId": "bbfb20064f065c16c002ba6888568a2dcf1117bc6318f4c0d5c31e2220e900f2"
+  },
+  "id": "nZKPkm6gwniUwBu7",
+  "tags": []
+}
